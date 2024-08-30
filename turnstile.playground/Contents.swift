@@ -6,14 +6,13 @@ Turnstile<Locked>()
   .insertCoin()
   .push()
 
-Turnstile<Locked>()
-  .insertCoin()
-  .insertCoin() // Error: Referencing instance method 'insertCoin()' on 'Turnstile' requires the types 'Unlocked' and 'Locked' be equivalent
-  .push()
-
 var locked = Turnstile<Locked>()
-var unlocked = locked.insertCoin()
 
-(locked.coins, unlocked.coins) // <- Coin: (0 , 1)
-locked = unlocked.push()
-locked.coins // <- Coin: 1
+/// Aliasing
+var unlocked = locked.insertCoin()
+var unlocked2 = unlocked
+
+/// ↓
+/// The code below may cause aliasing issues because both `unlocked` and `unlocked2` reference the same state.
+/// Modifications to one variable may inadvertently affect the other, leading to unintended side effects.
+
