@@ -1,15 +1,19 @@
 import Foundation
 
-var turnstile = Turnstile()
-turnstile.state // <- State: Locked
+Turnstile<Locked>()
+  .insertCoin()
+  .push()
+  .insertCoin()
+  .push()
 
-turnstile.insertCoin()
-turnstile.push()
-turnstile.coins // <- Coin: 1
+Turnstile<Locked>()
+  .insertCoin()
+  .insertCoin() // Error: Referencing instance method 'insertCoin()' on 'Turnstile' requires the types 'Unlocked' and 'Locked' be equivalent
+  .push()
 
-turnstile.push() //< - State: Locked
-turnstile.state
+var locked = Turnstile<Locked>()
+var unlocked = locked.insertCoin()
 
-turnstile.insertCoin() // <- State Unlocked
-turnstile.state
-turnstile.coins // <- Coin: 2
+(locked.coins, unlocked.coins) // <- Coin: (0 , 1)
+locked = unlocked.push()
+locked.coins // <- Coin: 1
