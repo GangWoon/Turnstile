@@ -49,8 +49,8 @@ public struct Turnstile<State: ~Copyable>: ~Copyable {
   }
 }
 
-public enum Locked {}
-extension Turnstile<Locked> {
+public enum Locked: ~Copyable {}
+extension Turnstile where State == Locked, State: ~Copyable {
   init() {
     self = .init(coins: .zero)
   }
@@ -60,8 +60,8 @@ extension Turnstile<Locked> {
   }
 }
 
-public enum Unlocked {}
-extension Turnstile<Unlocked> {
+public enum Unlocked: ~Copyable {}
+extension Turnstile where State == Unlocked, State: ~Copyable {
   consuming func push() -> Turnstile<Locked> {
     Turnstile<Locked>(coins: coins)
   }
