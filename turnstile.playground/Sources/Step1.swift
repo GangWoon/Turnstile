@@ -1,26 +1,16 @@
 //import Foundation
 //
 //public struct Turnstile {
-//  public enum State {
-//    case locked
-//    case unlocked
-//  }
-//
-//  public var state: State
-//  public private(set) var coins: Int
-//  
-//  public init() {
-//    self.state = .locked
-//    self.coins = 0
-//  }
+//  public var isLocked: Bool = true
+//  public private(set) var coins: Int = 0
 //
 //  public mutating func insertCoin() {
-//    guard state == .locked else { return }
-//    state = .unlocked
+//    guard isLocked else { return }
+//    isLocked.toggle()
 //    coins += 1
 //  }
 //
 //  public mutating func push() {
-//    state = .locked
+//    isLocked.toggle()
 //  }
 //}
